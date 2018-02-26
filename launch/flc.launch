@@ -1,0 +1,52 @@
+<launch>
+    <!-- Launch file for FLC, to run on robot.
+    Listens to joy topic, publishes control to base and camera.
+    -->
+    <arg name="use_as" default="False" />
+    <arg name="joy_topic" default="teleop_joy/flc_joy"/>
+    <arg name="odom_topic" default="imu_odom" />
+    <arg name="virtual_camera_topic" default="viz/ptz"/>
+    <arg name="output_base" default="/teleop_joy/cmd_vel"/>
+    <arg name="camera_pan_topic" default="camera_pan"/>
+    <arg name="camera_tilt_topic" default="camera_tilt"/>
+    <arg name="ugv_L" default="0.2"/>
+    <arg name="ugv_d" default="0.42"/>
+    <arg name="vel_max" default="0.3"/>
+    <arg name="ang_max" default="0.3"/>
+    <arg name="pan_offset" default="-36.0"/>
+    <arg name="tilt_offset" default="90.0"/>
+    <arg name="scale_tilt" default="0.25"/>
+    <group>
+        <!-- FLC node, with or without ActionServer. -->
+        <node pkg="flc_teleoperation" type="flc" name="FLC" output="screen" unless="$(arg use_as)">
+            <param name="~joy_topic" value="$(arg joy_topic)" />
+            <param name="~odom_topic" value="$(arg odom_topic)" />
+            <param name="~virtual_camera_topic" value="$(arg virtual_camera_topic)"/>
+            <param name="~output_base" value="$(arg output_base)"/>
+            <param name="~camera_pan_topic" value="$(arg camera_pan_topic)"/>
+            <param name="~camera_tilt_topic" value="$(arg camera_tilt_topic)"/>
+            <param name="~ugv_L" value="$(arg ugv_L)"/>
+            <param name="~ugv_d" value="$(arg ugv_d)"/>
+            <param name="~vel_max" value="$(arg vel_max)"/>
+            <param name="~ang_max" value="$(arg ang_max)"/>
+            <param name="~pan_offset" value="$(arg pan_offset)"/>
+            <param name="~tilt_offset" value="$(arg tilt_offset)"/>
+            <param name="~scale_tilt" value="$(arg scale_tilt)"/>
+        </node>
+        <node pkg="flc_teleoperation" type="flc_as" name="FLC" output="screen" if="$(arg use_as)">
+            <param name="~joy_topic" value="$(arg joy_topic)" />
+            <param name="~odom_topic" value="$(arg odom_topic)" />
+            <param name="~virtual_camera_topic" value="$(arg virtual_camera_topic)"/>
+            <param name="~output_base" value="$(arg output_base)"/>
+            <param name="~camera_pan_topic" value="$(arg camera_pan_topic)"/>
+            <param name="~camera_tilt_topic" value="$(arg camera_tilt_topic)"/>
+            <param name="~ugv_L" value="$(arg ugv_L)"/>
+            <param name="~ugv_d" value="$(arg ugv_d)"/>
+            <param name="~vel_max" value="$(arg vel_max)"/>
+            <param name="~ang_max" value="$(arg ang_max)"/>
+            <param name="~pan_offset" value="$(arg pan_offset)"/>
+            <param name="~tilt_offset" value="$(arg tilt_offset)"/>
+            <param name="~scale_tilt" value="$(arg scale_tilt)"/>
+        </node>
+    </group>
+</launch>

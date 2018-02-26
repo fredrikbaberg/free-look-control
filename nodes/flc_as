@@ -1,0 +1,10 @@
+#! /usr/bin/env python
+"""
+Launches Free Look Control as an ActionServer.
+
+If ActionServer is not needed, launch flc instead.
+"""
+import flc_teleoperation.flc_control
+
+if __name__ == '__main__':
+    flc_teleoperation.flc_control.main_as()
